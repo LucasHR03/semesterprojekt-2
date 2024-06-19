@@ -1,0 +1,48 @@
+#include <SPI.h>
+#include <TimerOne.h>
+
+// Der skal også oprettes et objekt, der specificerer SPI clock frekvensen og SPI mode:
+SPISettings settings(8000000, MSBFIRST, SPI_MODE0);
+
+// Sample time i mikrosekunder
+// Der skal oprettes en global variabel, der specificerer samplingtiden:
+const long tSampleInMicros = 1000000; // 1000000 mikrosekunder for 1 kHz sampling rate
+
+// Funktion der får EKG data fra AD-konvertern 
+int getEKGADC() {
+    digitalWrite(10, LOW); // Start SPI transfer
+    int adcValue = SPI.transfer16(0x00); // Transfer 16 bits
+    digitalWrite(10, HIGH); // Stopper SPI overførelsen
+    return adcValue;
+}
+
+// Funktion til at læse og sende EKG data
+// Der skal laves en C-funktion, measureAndSend(), som laver en AD-konvertering (kalder den ovenfor
+// udviklede funktion getEKGADC(), og sender de målte data til PC’en.
+void measureAndSend() {
+    int ekgValue = getEKGADC();
+    Serial.println(ekgValue);
+}
+
+void setup() {
+    // Fastsætter Serial kommunikationen
+    // HUSK sættes til 115200 baud !
+    Serial.begin(115200);
+
+    // Fastsætter SPI
+    SPI.begin();
+    SPI.beginTransaction(settings);
+    pinMode(10, OUTPUT);
+    digitalWrite(10, HIGH);
+
+    // Fastsætter Timer1 for sampling
+    Timer1.initialize(tSampleInMicros); // initialize timer1, and set the period
+    Timer1.attachInterrupt(measureAndSend); // attaches measureAndSend as a timer overflow interrupt
+}
+
+void loop() {
+    
+}
+
+
+
