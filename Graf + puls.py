@@ -70,7 +70,6 @@ def update(frame):
 # Create an animation
 ani = animation.FuncAnimation(fig, update, frames=len(y_data), interval=0.5, repeat=False)
 
-# Add a title and labels
 plt.title('Real-Time Data from Single Column File')
 plt.xlabel('Index')
 plt.ylabel('y values')
