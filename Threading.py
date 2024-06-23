@@ -6,7 +6,7 @@ import threading
 import queue
 import serial
 import time
-
+#
 # Adjust the serial port and baud rate to match your Arduino settings
 SERIAL_PORT = 'COM3'
 BAUD_RATE = 115200
