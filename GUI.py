@@ -80,7 +80,7 @@ def create_plot_window():
     ani = animation.FuncAnimation(fig, update, frames=len(y_data), interval=50, repeat=False)
 
     # Add a title and labels
-    plt.title('Real-Time Data')
+    plt.title('Real-Time EKG')
     plt.xlabel('Index')
     plt.ylabel('y values')
 
@@ -108,7 +108,7 @@ def start_plot():
 
 # Initialize the main Tkinter window
 root = tk.Tk()
-root.title("Data Plotter")
+root.title("EKG")
 
 # Initialize global variables
 window_size = 300
