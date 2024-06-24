@@ -23,12 +23,34 @@ data_queue = queue.Queue()
 def read_from_arduino(serial_port, baud_rate, data_queue):
     conn = sqlite3.connect('SP2database.db')  # Connect to the database in the current directory
     cursor = conn.cursor()
+
+    # Create tables if they do not exist
     cursor.execute('''
-        CREATE TABLE IF NOT EXISTS ekg_data (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            value REAL
+        CREATE TABLE IF NOT EXISTS patientdata (
+            idcpr TEXT PRIMARY KEY,
+            navn TEXT,
+            efternavn TEXT,
+            fødselsdag NUMERIC,
+            adresse TEXT,
+            telefon TEXT,
+            mail TEXT,
+            noedkontaktnavn TEXT,
+            noedkontakttelefon TEXT,
+            noedkontaktrelation TEXT
         )
     ''')
+
+    cursor.execute('''
+        CREATE TABLE IF NOT EXISTS patientmaaling (
+            idcpr TEXT,
+            ekgid INTEGER PRIMARY KEY AUTOINCREMENT,
+            starttidspunkt NUMERIC,
+            puls INTEGER,
+            ekgdata REAL,
+            FOREIGN KEY(idcpr) REFERENCES patientdata(idcpr)
+        )
+    ''')
+
     conn.commit()
 
     data_chunk = []  # List to store data chunk
@@ -73,7 +95,7 @@ def read_from_arduino(serial_port, baud_rate, data_queue):
 
 # Initialize global variables
 window_size = 300
-threshold = 0.006
+threshold = 800
 above_threshold_count = 0
 last_increment_frame = 50
 y_data = []
@@ -156,7 +178,7 @@ if __name__ == "__main__":
     threshold_label.grid(row=1, column=0, padx=10, pady=10, sticky='e')
 
     threshold_entry = ttk.Entry(root)
-    threshold_entry.insert(0, "0.006")
+    threshold_entry.insert(0, "800")
     threshold_entry.grid(row=1, column=1, padx=10, pady=10)
 
     start_button = ttk.Button(root, text="Start Plot", command=start_plot)
