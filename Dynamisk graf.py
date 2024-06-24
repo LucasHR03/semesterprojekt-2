@@ -13,7 +13,7 @@ def read_single_column_data(filename):
 
 # Read data from the file once
 # Testfill data.txt
-filename = '201m (0).txt'  # Replace with your filename
+filename = '201m (0).txt'
 y_data = read_single_column_data(filename)
 
 # Initialize the plot

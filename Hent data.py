@@ -20,7 +20,7 @@ def read_file(file_A, delimiter=',', chunk_size=100000):
             List.append(row)
             if (i + 1) % chunk_size == 0:
                 data.extend(List)
-                List = []  # Clear the List to save memory
+                List = []  # Clear the List
         if List:  # Add the last List if it's not empty
             data.extend(List)
     return data

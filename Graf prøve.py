@@ -1,6 +1,6 @@
 import matplotlib.pyplot as plt
 
-# Function to read data from a text file with a single number per line
+# Function to read data from a text file
 def read_single_column_data(filename):
     y = []
     with open(filename, 'r') as file:
@@ -10,7 +10,7 @@ def read_single_column_data(filename):
 
 # Read data from the file
 # forsøgsfil data.txt
-filename = '201m (0).txt'  # Replace with your filename
+filename = '201m (0).txt'
 y = read_single_column_data(filename)
 
 # Generate x values as a sequence of integers
