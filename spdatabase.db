@@ -1,0 +1,25 @@
+
+CREATE TABLE "patientdata" (
+	"idcpr"	TEXT,
+	"navn"	TEXT,
+	"efternavn"	TEXT,
+	"fødselsdag"	NUMERIC,
+	"adresse"	TEXT,
+	"telefon"	TEXT,
+	"mail"	TEXT,
+	"noedkontaktnavn"	TEXT,
+	"noedkontakttelefon"	TEXT,
+	"noedkontaktrelation"	TEXT,
+	PRIMARY KEY("idcpr")
+);
+
+
+CREATE TABLE "patientmaaling" (
+	"idcpr"	TEXT,
+	"ekgid"	INTEGER,
+	"starttidspunkt"	NUMERIC,
+	"puls"	INTEGER,
+	"ekgdata"	REAL,
+	FOREIGN KEY("idcpr") REFERENCES "patientdata"("idcpr"),
+	PRIMARY KEY("ekgid")
+);
