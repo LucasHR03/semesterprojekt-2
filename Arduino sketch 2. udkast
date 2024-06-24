@@ -6,7 +6,7 @@ SPISettings settings(8000000, MSBFIRST, SPI_MODE0);
 
 // Sample time i mikrosekunder
 // Der skal oprettes en global variabel, der specificerer samplingtiden:
-const long tSampleInMicros = 1000000; // 1000000 mikrosekunder for 1 kHz sampling rate
+const long tSampleInMicros = 3330; // 3300 mikrosekunder for 3,33 ms sampling rate
 
 // Funktion der får EKG data fra AD-konvertern 
 int getEKGADC() {
